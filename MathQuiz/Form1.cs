@@ -46,6 +46,7 @@ namespace MathQuiz
         /// </summary>
         public void StartTheQuiz()
         {
+            timer1.Tick += new EventHandler(timer1_Tick);
             // Fill in the addition problem.
             // Generate two random numbers to add.
             // Store the values in the variables 'addend1' and 'addend2'.
@@ -84,16 +85,18 @@ namespace MathQuiz
             dividedLeftLabel.Text = dividend.ToString();
             dividedRightLabel.Text = divisor.ToString();
             quotient.Value = 0;
-
+            //timer1.ToString();
             // Start the timer.
             timeLeft = 30;
-            timer1.Text = "30 seconds";
+            timeLabel.Text = "30 seconds";
+           // timer1.Text = timer1.ToString();
             timer1.Start();
 
         }
             public Form1()
         {
             InitializeComponent();
+            timer1.Stop();
         }
         private void answer_Enter(object sender, EventArgs e)
         {
@@ -121,7 +124,7 @@ namespace MathQuiz
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            timer1.Tick += new EventHandler(timer1_Tick);
+            
             if (CheckTheAnswer())
             {
                 // If CheckTheAnswer() returns true, then the user 
@@ -139,14 +142,14 @@ namespace MathQuiz
                 // display the new time left by updating the 
                 // Time Left label.
                 timeLeft = timeLeft - 1;
-                timer1.Text = timeLeft + " seconds";
+                timeLabel.Text = timeLeft + " seconds";
             }
             else
             {
                 // If the user ran out of time, stop the timer, show
                 // a MessageBox, and fill in the answers.
                 timer1.Stop();
-                timer1.Text = "Time's up!";
+                timeLabel.Text = "Time's up!";
                 MessageBox.Show("You didn't finish in time.", "Sorry!");
                 sum.Value = addend1 + addend2;
                 difference.Value = minuend - subtrahend;
@@ -154,7 +157,9 @@ namespace MathQuiz
                 quotient.Value = dividend / divisor;
                 startButton.Enabled = true;
             }
+            
         }
+
         /// <summary>
         /// Check the answers to see if the user got everything right.
         /// </summary>
@@ -164,6 +169,7 @@ namespace MathQuiz
             if ((addend1 + addend2 == sum.Value)
                 && (minuend - subtrahend == difference.Value)
                 && (multiplicand * multiplier == product.Value)
+                && (divisor != 0)
                 && (dividend / divisor == quotient.Value))
                 return true;
             else
