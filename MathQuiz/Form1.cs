@@ -121,6 +121,22 @@ namespace MathQuiz
             StartTheQuiz();
             startButton.Enabled = false;
         }
+        /// <summary>
+        /// Check the answers to see if the user got everything right.
+        /// </summary>
+        /// <returns>True if the answer's correct, false otherwise.</returns>
+        private bool CheckTheAnswer()
+        {
+            if ((addend1 + addend2 == sum.Value)
+                && (minuend - subtrahend == difference.Value)
+                && (multiplicand * multiplier == product.Value)
+                && (divisor != 0)
+                && (dividend / divisor == quotient.Value))
+                return true;
+            else
+                return false;
+        }
+
 
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -160,22 +176,7 @@ namespace MathQuiz
             
         }
 
-        /// <summary>
-        /// Check the answers to see if the user got everything right.
-        /// </summary>
-        /// <returns>True if the answer's correct, false otherwise.</returns>
-        private bool CheckTheAnswer()
-        {
-            if ((addend1 + addend2 == sum.Value)
-                && (minuend - subtrahend == difference.Value)
-                && (multiplicand * multiplier == product.Value)
-                && (divisor != 0)
-                && (dividend / divisor == quotient.Value))
-                return true;
-            else
-                return false;
-        }
-
+      
        
     }
 }
